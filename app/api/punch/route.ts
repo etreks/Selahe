@@ -80,8 +80,8 @@ export async function DELETE(req: NextRequest) {
     .eq("id", punch_id)
     .single();
 
-  // @ts-expect-error joined shape
-  if (!punch || punch.action.user_id !== user.id) {
+
+  if (!punch || (punch as any).action.user_id !== user.id) {
     return NextResponse.json({ error: "not found" }, { status: 404 });
   }
 
